@@ -84,7 +84,7 @@ void drawlowbat(void) {
   } while( u8g2.nextPage() );
 }
 void mesg(const char* text) {
-  uint8_t i, h;
+  uint8_t h;
   u8g2_uint_t c, d, l;
   u8g2.firstPage();
   do  {
