@@ -1,20 +1,45 @@
-/* Copyrigth (c), 2020, Francisco Rafael Reyes Carmona.
- * Reservados todos los derechos.
- *  
- *     Queda totalmente prohibida la distribución, reproducción, copia, almacenamiento o
- * transcripción total o parcial de ésta obra en cualquier soporte físico o electrónico sin el
- * consentimiento expreso del propietario del copyrigth.
- *
- *     Este código se distribuye “tal cual” sin garantía implícita, incluso mercantil, o
- * de uso, así como la adecuación para un propósito concreto.
- *
- *     El autor no se hace responsable de cualquier tipo de daño derivado del uso, así como
- * pérdidas económicas o de información.
- */
- 
+/*
+display.h - Video Remoto en Tiempo Real. Display routines.
+v1.0
+
+Copyright © 2020-2022 Francisco Rafael Reyes Carmona.
+All rights reserved.
+rafael.reyes.carmona@gmail.com
+_______________________________________________________________________
+|                                                                     |
+|  No part of this work may be distributed, reproduced, copied,       |
+|  stored in a retrieval system, or transcribed in any form or        |
+|  by any means, electronic or mechanical, beyond the terms of the    |
+|  License.                                                           |
+|                                                                     |
+|  This code is distributed "as is" without warranty of any kind,     |
+|  including warranties of merchantability, fitness for a particular  |
+|  purpose, or fitness for a particular purpose.                      |
+|                                                                     |
+|  The author shall not be liable for any damages of any kind arising |
+|  out of the use, including loss of business or loss of data.        |
+|_____________________________________________________________________|
+
+  This file is part of VRTR Project.
+
+  VRTR Project is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  VRTR Project is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with VRTR Project.  If not, see <https://www.gnu.org/licenses/>.
+
+*/
+
 #include <U8x8lib.h>
 #include <U8g2lib.h>
-#include <SPI.h>
+
 #include "logostart.h"
 
 #if defined(SDD1306_128X64)
@@ -24,6 +49,7 @@
   // Crea el objeto u8g para pantalla OLED 0.96 126x64 px.
   U8G2_SSD1306_128X64_NONAME_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
 #elif defined(HX1230_96X68)
+  #include <SPI.h>
   #define LCD_DIN 11
   #define LCD_CLK 13
   #define LCD_RST 5
