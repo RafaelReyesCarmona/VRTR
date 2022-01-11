@@ -37,7 +37,7 @@ _______________________________________________________________________
 
 */
 
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
 static const unsigned char AmpVolt[] PROGMEM = {
   // Image 28x43
   B11111110, B11111111, B01111111,

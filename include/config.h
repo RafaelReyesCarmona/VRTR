@@ -37,7 +37,8 @@ _______________________________________________________________________
 
 */
 
-#define SDD1306_128X64        // Define para usar pantalla OLED 0.96" I2C 128x64 pixels
+//#define SDD1306_128X64      // Define para usar pantalla OLED 0.96" I2C 128x64 pixels (SDD1306)
+#define SH1106_128X64         // Define para usar pantalla OLED 1.30" I2C 128x64 pixels (SH1106)
 //#define HX1230_96X68        // Define para usar pantalla HX1230 96x68 pixels LCD SPI(Nokia simil.) 
 
 //#define DEBUG           // Activar para obtener datos de depuración por Serial.

@@ -7,13 +7,17 @@
 
  Firmware for power control in the 'Capture and Send' device.
 
- <img alt="VRTR Esquema" src="img/VRTR_esquemático.png" width="760">&nbsp;
+ <img alt="V2RT Display Capture and Send Module" src="img/IMG_20220111_233059.jpg" width="400">&nbsp; 
+
+
+
+ <img alt="V2RT Esquema" src="img/VRTR_esquemático.png" width="760">&nbsp;
 
  ## Introduction
 
 Most modern weapon systems have a monitor to display information from the optical sensors they incorporate. In many cases, these optical systems are highly accurate and specialized, such as infrared and thermal sensors. The possibility of having remote video without limiting movement offers endless possibilities.
 
-Seeing from a distance what the operator of a weapon system is seeing in real time is a privilege and a breakthrough in technology. This is where the video remote real time system (VRTR system) comes into play.
+Seeing from a distance what the operator of a weapon system is viewing in real time is a privilege and a breakthrough in technology. This is where the video remote real time system (V2RT System, named "Vituarty System") comes into play.
 
 The project is based on being able to capture images from any optical sensor and have those images available remotely, transmitting them wirelessly to the station that will process them.
 
@@ -21,7 +25,7 @@ Once the images or video have been captured, they are broadcast over a Wi-Fi net
 
 The code controls the behaviour of the microcontroller to turn the 'Capture and Send' module on or off, monitors battery voltage and consumption, and temperatures.
 
- <img alt="VRTR Capture and Send module" src="img/Imagen1.png" width="760">&nbsp;
+ <img alt="V2RT Capture and Send module" src="img/Imagen1.png" width="760">&nbsp;
 
  ## License
 ```

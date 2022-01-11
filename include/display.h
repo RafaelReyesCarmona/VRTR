@@ -46,8 +46,14 @@ _______________________________________________________________________
   #define SCREEN_WIDTH 128 // OLED display width, in pixels
   #define SCREEN_HEIGHT 64 // OLED display height, in pixels
   #define display_offset 0
-  // Crea el objeto u8g para pantalla OLED 0.96 126x64 px.
-  U8G2_SSD1306_128X64_NONAME_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+  // Crea el objeto u8g2 para pantalla OLED 0.96" 128x64 px.
+  U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE, /* clock=*/ SCL, /* data=*/ SDA);
+#elif defined(SH1106_128X64)
+  #define SCREEN_WIDTH 128 // OLED display width, in pixels
+  #define SCREEN_HEIGHT 64 // OLED display height, in pixels
+  #define display_offset 0
+  // Crea el objeto u8g2 para pantalla OLED 1.30" 128x64 px.
+  U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE, /* clock=*/ SCL, /* data=*/ SDA);
 #elif defined(HX1230_96X68)
   #include <SPI.h>
   #define LCD_DIN 11
@@ -58,13 +64,13 @@ _______________________________________________________________________
   #define SCREEN_WIDTH 96 // OLED display width, in pixels
   #define SCREEN_HEIGHT 68 // OLED display height, in pixels
   #define display_offset 32
-  U8G2_HX1230_96X68_1_3W_SW_SPI u8g2(U8G2_R0, /* clock=*/ LCD_CLK, /* data=*/ LCD_DIN, /* cs=*/ LCD_CS, /* reset=*/ LCD_RST);
+  U8G2_HX1230_96X68_1_3W_HW_SPI u8g2(U8G2_R0, /* clock=*/ LCD_CLK, /* data=*/ LCD_DIN, /* cs=*/ LCD_CS, /* reset=*/ LCD_RST);
 #endif
 
 void drawlogo(void) {
   u8g2.firstPage();  
   do {  // graphic commands to redraw the complete screen should be placed here  
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
     u8g2.setFont(u8g2_font_helvR10_tf);
     u8g2.setCursor(20,0);
 #elif defined(HX1230_96X68)
@@ -77,7 +83,7 @@ void drawlogo(void) {
     u8g2.setFontPosTop();
     u8g2.print(F("VRTR Project"));
 
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
     u8g2.drawXBMP( 31, 16, 64, 48, LogoStart);
 #elif defined(HX1230_96X68)
     u8g2.drawXBMP( 16, 18, 64, 48, LogoStart);
@@ -89,7 +95,7 @@ void drawlowbat(void) {
   // graphic commands to redraw the complete screen should be placed here  
   u8g2.firstPage();  
   do {
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
     u8g2.setFont(u8g2_font_helvR10_tf);
     u8g2.setCursor(5,0);
 #elif defined(HX1230_96X68)
@@ -101,7 +107,7 @@ void drawlowbat(void) {
     u8g2.setDrawColor(1);
     u8g2.setFontPosTop();
     u8g2.print(F("LOW BATTERY!!!"));
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
     u8g2.drawXBMP( 36, 16, 56, 48, IconLowBattery);
 #elif defined(HX1230_96X68)
     u8g2.drawXBMP( 20, 18, 56, 48, IconLowBattery);
@@ -114,7 +120,7 @@ void mesg(const char* text) {
   u8g2_uint_t c, d, l;
   u8g2.firstPage();
   do  {
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
     u8g2.setFont(u8g2_font_helvR10_tf);
 #elif defined(HX1230_96X68)
     //u8g2.setFont(u8g2_font_logisoso16_tf);
@@ -158,7 +164,7 @@ void drawiconant () {
   u8g2.drawLine(1, 14, 6, 14);
   u8g2.drawLine(0, 15, 7, 15);
   
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
   // Draw channel of transmision.
   u8g2.setCursor(17,3);
   u8g2.print(F("CH:"));
@@ -448,7 +454,7 @@ void printdata(float battery_value, float battery_amp_value, byte battery_percen
   
   dtostrf(t_amb, 2, 1, temp_str);
   dtostrf(t_ts832, 2, 1, buf);
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
   strcat_P(temp_str,(const char*) F("\260C,"));
   strcat(temp_str, buf);
   strcat_P(temp_str, (const char*) F("\260C"));
@@ -459,7 +465,7 @@ void printdata(float battery_value, float battery_amp_value, byte battery_percen
 #endif
   u8g2.firstPage();
   do  {
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
     u8g2.setFont(u8g2_font_helvR10_tf);
 #elif defined(HX1230_96X68)
     //u8g2.setFont(u8g2_font_logisoso16_tf);
@@ -468,7 +474,7 @@ void printdata(float battery_value, float battery_amp_value, byte battery_percen
     u8g2.setFontRefHeightExtendedText();
     u8g2.setDrawColor(1);
     u8g2.setFontPosTop();
-#if defined(SDD1306_128X64)
+#if defined(SDD1306_128X64) || defined(SH1106_128X64)
     u8g2.drawXBMP(0,18,24, 43, AmpVolt);
 #endif
     u8g2.drawStr(45-display_offset,SCREEN_HEIGHT/4,bat_str);
