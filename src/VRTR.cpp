@@ -2,7 +2,7 @@
 VRTR.cpp - Video Remoto en Tiempo Real.
 v1.0
 
-Copyright © 2020-2022 Francisco Rafael Reyes Carmona.
+Copyright © 2019-2022 Francisco Rafael Reyes Carmona.
 All rights reserved.
 rafael.reyes.carmona@gmail.com
 _______________________________________________________________________
@@ -89,7 +89,7 @@ void power_ts832() {
   digitalWrite(PWR_TEMP, pwr_switch);
   digitalWrite(PWR_TEMP_AMB, pwr_switch);
 /*  #if defined(HX1230_96X68) 
-     digitalWrite(LCD_BL, pwr_switch);
+      digitalWrite(LCD_BL, pwr_switch);
   #endif
  */
   if (pwr_switch) {
@@ -185,7 +185,8 @@ void loop() {
   standby = stand_by(battery_percent);
 
   if (standby &&  battery_amp_value > 0) needcharge = true;
-  else if (!standby && battery_amp_value < -1000 && battery_value > 17.0) needcharge = false;
+//  else if ((!standby) && (battery_amp_value < -1000) && (battery_value > 17.0)) needcharge = false;
+  else if ((!standby) && (battery_value > 17.0)) needcharge = false;
   
   if (pwr_switch && !standby && !needcharge) {
       digitalWrite(PWR_TS832, HIGH);
@@ -211,7 +212,7 @@ void loop() {
           digitalWrite(LCD_BL, LOW);
         #endif
         
-        LowPower.idle(SLEEP_8S,ADC_ON,TIMER2_OFF,TIMER1_OFF,TIMER0_OFF,SPI_ON,USART0_ON,TWI_ON);
+        LowPower.idle(SLEEP_500MS,ADC_ON,TIMER2_OFF,TIMER1_OFF,TIMER0_OFF,SPI_ON,USART0_ON,TWI_ON);
       } else if (standby || needcharge) {
         digitalWrite(PWR_TS832, LOW);
         digitalWrite(PWR_TEMP, LOW);
@@ -220,17 +221,16 @@ void loop() {
         drawlowbat();
 //        capturedata();   // For test display.
         
-        LowPower.idle(SLEEP_2S,ADC_ON,TIMER2_OFF,TIMER1_OFF,TIMER0_OFF,SPI_ON,USART0_ON,TWI_ON);
         #if defined(HX1230_96X68) 
+          delay(2000);
           digitalWrite(LCD_BL, LOW);
         #endif
-        LowPower.idle(SLEEP_8S,ADC_ON,TIMER2_OFF,TIMER1_OFF,TIMER0_OFF,SPI_ON,USART0_ON,TWI_ON);
-              
+        LowPower.idle(SLEEP_500MS,ADC_ON,TIMER2_OFF,TIMER1_OFF,TIMER0_OFF,SPI_ON,USART0_ON,TWI_ON);
       } else {
         mesg("ERROR!!!");
         
-        LowPower.idle(SLEEP_2S,ADC_ON,TIMER2_OFF,TIMER1_OFF,TIMER0_OFF,SPI_ON,USART0_ON,TWI_ON);
         #if defined(HX1230_96X68) 
+          delay(2000);
           digitalWrite(LCD_BL, LOW);
         #endif
         LowPower.idle(SLEEP_FOREVER,ADC_ON,TIMER2_OFF,TIMER1_OFF,TIMER0_OFF,SPI_ON,USART0_ON,TWI_ON);
